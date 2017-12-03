@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "UTF-8"/>
+    <title>Тягово-динамический расчёт автомобиля</title>
+    <link href = "CSS0.css" rel = "stylesheet" type = "text/css"/>
+</head>
+<body>
+<script src="javascript0.js"> </script>
+<div id="Con">
+   <header>
+    <div id = "header"><h1>Traction-dynamic calculation</h1></div>
+   </header>
+
+    <!--  <div id="Content-wrape" style="display:none;"  > -->
+       <div id="Content-wrape" >
+       <div class="cont1"><button id="prev" class="butt" onclick="prev();"><img src="image/prevSL.png"></button></div>
+       <div class='slide cont2' >
+               <input type="radio" name="slider2" id="slider2_1" checked="checked">
+               <label for="slider2_1"></label>
+               <div><p>Car: Petrol</p>
+                   <a href="1.html"><img src="image/Car/CarPetrol.jpg"></a> </div>
+               <input type="radio" name="slider2" id="slider2_2">
+               <label for="slider2_2"></label>
+               <div><p>Car: Diesel</p>
+                   <a href="2.html"><img src="image/Car/CarDiesel.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_3">
+               <label for="slider2_3"></label>
+               <div><p>Bus:Petrol</p>
+                   <a href="3.html"><img src="image/Car/BusPetrol.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_4">
+               <label for="slider2_4"></label>
+               <div><p>Bus: Diesel</p>
+                   <a href="4.html"><img src="image/Car/BusDiesel.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_5">
+               <label for="slider2_5"></label>
+               <div><p>Tourist-Bus: Petrol</p>
+                   <a href="5.html"><img src="image/Car/TouristBusPetrol.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_6">
+               <label for="slider2_6"></label>
+               <div><p>Tourist-Bus: Diesel</p>
+                   <a href="6.html"><img src="image/Car/TouristBusDiesel.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_7">
+               <label for="slider2_7"></label>
+               <div><p>Truck: Petrol</p>
+                   <a href="7.html"><img src="image/Car/TruckPetrol.jpg"></a></div>
+               <input type="radio" name="slider2" id="slider2_8">
+               <label for="slider2_8"></label>
+               <div><p>Truck: Diesel</p>
+                   <a href="8.html"><img src="image/Car/TruckDiesel.jpg"></a></div>
+           </div>
+           <div id="next" class="cont1">    <button class="butt" onclick="next();"><img src="image/nextSL.png"></button></div>
+       </div>
+   <!--  <script>
+         pasword();
+         function pasword() {
+         var key=prompt("Введите пароль.");
+         var castle="Vivat";
+         if(key===castle)
+         document.getElementById("Content-wrape").style.display="table";
+         else if (key===null) alert("Неверный пароль!");
+         else {alert("Неверный пароль!"); pasword();} }
+     </script> -->
+  </div>
+
+  </body>
+  </html>

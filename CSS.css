@@ -1,0 +1,257 @@
+html, body{
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    background: url(image/Back.jpg) center;
+}
+
+#Con{
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 40px;
+    display:table;
+}
+
+#header{
+    background: white url(image/Car.png) no-repeat right top;
+    background-size: 520px;
+    height: 100px;
+    width: 965px;
+    margin: 0 auto;
+    opacity: 0.7;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 35px;
+}
+
+#Content-wrape{
+    background: white;
+    width: 1000px;
+  /* height: 15000px; */
+    min-height: 450px;
+    display:table;
+    opacity: 0.95;
+    margin: 30px auto;
+    border-radius: 10px;
+}
+
+#content{
+    width: 78%;
+    float: left;
+    padding: 10px 10px;
+}
+.new{
+    width: 945px;
+}
+#sidebar{
+    background-color: rgba(140, 130, 130, 0.6);
+    width: 20%;
+    float: left;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 10px;
+
+}
+
+.clear {
+    clear: both;
+}
+.table{
+    width: 360px;
+
+}
+.button{
+    width: 60px;
+}
+
+.smoothLeft{
+    text-align: right;
+}
+
+#content1{
+    width: 50%;
+    float: left;
+}
+#content2{
+    width: 50%;
+    float: left;
+}
+
+.inputAll{
+    width: 50px;
+}
+.inputGear{
+    width: 20px;
+}
+.important{
+   border-color: rgb(255, 0, 0);
+}
+
+.VSX{
+    width: 1000px;
+    text-align: center;
+}
+.inputFrequency{
+    width: 130px;
+    text-align: center;
+    background-color: white;
+}
+
+.tableOutsideSpeed{
+    width: 130px;
+    text-align: center;
+}
+#sidebar>h3{
+    color: black;
+    width: 200px;
+    line-height: 10px;
+    text-align: left;
+    padding-left: 15px;
+    text-decoration:underline;
+    margin-bottom: 10px;
+    margin-top: 15px;
+
+}
+#sidebar>a>h4{
+    padding: 0;
+    margin: 0;
+}
+/* Фиксация выбранного элемента*/
+#sidebar>h4 {
+    background-color: white;
+    color: blue;
+    padding: 0;
+    margin: 0;
+    display: block;
+    height:30px;
+    width: 200px;
+    line-height: 30px;
+}
+#sidebar>a{
+    display: block;
+    color: black;
+    height:30px;
+    width: 200px;
+    text-decoration:none;
+    line-height: 30px;
+}
+#sidebar>a:hover{
+    background-color: white;
+    color:blue;
+}
+
+#qq{
+    height: 15px;
+    width: 7px;
+    text-align: center;
+    border: none;
+    background-color: rgba(140, 130, 130, 0);
+    border-radius: 3px;
+}
+
+.inputTire{
+    height: 20px;
+    width: 35px;
+    text-align: center;
+    border: none;
+    background-color: rgba(140, 130, 130, 0.3);
+    border-radius: 3px;
+}
+
+.tdSpanGear{
+    width:30px;
+    text-align: center;}
+
+.spanGear {
+    text-align: center;
+    border: none;
+    background-color: rgba(107, 103, 103, 0.1);
+    border-radius: 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.switch1 input {display: none;}
+.switch1 label {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 10px;
+    border-radius: 3px;
+    background: rgb(71, 71, 71);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.2);
+    cursor: pointer;
+}
+.switch1 label:before {
+    content: "";
+    position: absolute;
+    left: -8px; top: -3px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: #dfe5d7 radial-gradient(#dfe5d7, #b3bead 80%, #fff 80%) no-repeat 50% 50%;
+    transition: .5s;
+}
+.switch1 input:checked ~ label:before {
+    left: 32px;
+}
+
+.cont1{
+    width: 50%;
+    float: left;
+}
+
+.cont2{
+    width: 70%;
+    float: left;
+}
+.cont3{
+    width: 30%;
+    float: left;
+}
+
+.buttonforplay{
+    background-color: rgba(140, 130, 130, 0);
+    border-radius: 5px;
+    border: none;
+}
+
+
+.horizontal-click [name="vkl"] { display: none; }
+.horizontal-click > :not(input):not(label) {
+    overflow: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0 .5em;
+    border: 1px solid #808080;
+    border-top-style: none;
+    transition: .5s;
+}
+.horizontal-click > label {
+    overflow: hidden;
+    display: block;
+    padding: .5em 1em;
+    background: #606060;
+    color: rgb(200,200,200);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+.horizontal-click > :checked + label + * {
+    overflow: auto;
+    height: 100%;
+    width: 960px;
+    <!--height: 500px;-->
+
+}
+.horizontal-click > :checked + label {
+    background: #454545;
+    cursor: default;
+}
+

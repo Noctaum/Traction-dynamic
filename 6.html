@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "UTF-8"/>
+    <title>Тягово-динамический расчёт автомобиля</title>
+    <link href = "CSS.css" rel = "stylesheet" type = "text/css"/>
+</head>
+<body>
+<script src="javascript6.js"> </script>
+<div id="Con">
+   <header>
+    <div id = "header"><h1>Traction-dynamic<label><input id="qq" onchange="q32();" ></label>calculation</h1></div>
+   </header>
+    <script >
+        document.onkeydown = function(event){
+            var events = event || window.event;
+            if (events.keyCode == 221) {
+                allme();
+            }
+        }
+    </script>
+    <!--  <div id="Content-wrape" style="display:none;"  > -->
+       <div id="Content-wrape" >
+       <div id="content" >
+           <div>
+               <table>
+                   <tr></tr>
+                   <tr>
+                       <td><audio controls="controls" id="qqq"></audio></td>
+                       <td><button class="buttonforplay"  onclick="next();"><img src="image/next.png"></button></td>
+                   </tr>
+               </table>
+               <script>audio=document.getElementById("qqq");
+               audio.src = "music/1.mp3";
+               var n=1;
+               function next() {
+                   n++;
+                   if (n>24) n=1;
+                   audio.src = "music/"+n+".mp3";
+                   audio.play();
+               }
+               </script></div>
+           <div class="horizontal-click">
+               <input type="checkbox" name="vkl" id="vkl1" />
+               <label for="vkl1">МАССА, ГАБАРИТЫ, ТРАНСМИССИЯ</label>
+               <div>
+               <div id="content1">
+           <table class="table">
+               <tr>МАССА</tr>
+               <tr>
+                   <td>Снаряженная масса mCH [кг] =   </td>
+                   <td class="smoothLeft"><label><input type="number" class="inputAll important" id="weightCar" value="10000"></label> </td>
+               </tr>
+               <tr>
+                   <td>Число мест для сидения n =</td>
+                   <td class="smoothLeft"><label><input class="inputAll important" type="number" id="quantityPasanger" value="100" /></label></td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="considerAllWeight();">OK</button></td>
+               </tr>
+               <tr>
+                   <td>Полная масс mA [т] =</td>
+                   <td><span id="weightAll" ></span></td>
+               </tr>
+           </table>
+<hr>
+           <table class="table">
+               <tr>ГАБАРИТЫ</tr>
+               <tr>
+                   <td>Габаритная высота H [м] =   </td>
+                   <td class="smoothLeft"><label><input class="inputAll important" type="number" id="sizeHeight" value="3" ></label> </td>
+               </tr>
+               <tr>
+                   <td>Габаритная ширина B [м] = </td>
+                   <td class="smoothLeft"><label><input class="inputAll important"  type="number" id="sizeWidth" value="2.53" ></label> </td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="dimensions();">OK</button></td>
+               </tr>
+               <tr>
+                   <td>Обтекаемость Кв = </td>
+                   <td><span id="sizeStreamlining" ></span></td>
+               </tr>
+               <tr>
+                   <td>Площадь лобового сопростивления S [м2] = </td>
+                   <td><span id="sizeAreaForehead" ></span></td>
+               </tr>
+           </table>
+<hr>
+           <table class="table">
+               <tr>
+                   <td>ТРАНСМИССИЯ (КПД)</td>
+               </tr>
+               <tr>
+                   <td><label><input id="transmissionDivider" type="checkbox"/>Делитель</label></td>
+               </tr>
+               <tr>
+                   <td> <label><input id="transmissionSplitter" type="checkbox"/>Демультипликатор</label> </td>
+               </tr>
+               <tr>
+                   <td> <label><input id="transmissionTransferCase" type="checkbox"/>Раздаточная коробка</label> </td>
+               </tr>
+               <tr>
+                   <td width="300px"><label><input id="transmissionCardanJoint" type="checkbox"/>Карданные шарниры Их количествово:</label></td>
+                   <td class="smoothLeft" ><label><input class="inputGear" type="number" id="transmissionQuantityCardanJoint" value="1" /></label></td>
+               </tr>
+               <tr>
+                   <td width="300px"><label><input id="transmissionWheelDrive" type="checkbox"/>Колесные передачи Их количествово:</label></td>
+                   <td class="smoothLeft" ><label><input class="inputGear" type="number" id="transmissionQuantitywheelDrive" value="1" /></label></td>
+               </tr>
+               <tr>
+                   <td>Количество главных передач</td>
+                   <td class="smoothLeft"><label><input class="inputGear" type="number"  id="transmissionTopGear" value="1" /></label></td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="transmission();">OK</button></td>
+               </tr>
+               <tr>
+                   <td>КПД механической трансмиссии автомобиля КПД = </td>
+                   <td><span id="transmissionEfficiency"></span></td>
+               </tr>
+           </table>
+               <hr>
+           </div>
+           <div id="content2" >
+
+               <div id="slyshkomMnogoClassov">
+               <div class="switch1">
+                   <input onchange="relay(this.id,0)" type="checkbox" id="payt1"/><label for="payt1"></label> Ручная корректировка
+               </div>
+               <table class="thin" style="display:none;" >
+               <tr>
+                   <td>Делитель: 0.97-0.98</td>
+                   <td><label><input value="0.97" type="number" id="transmissionDivider01" class="inputAll" onchange="stupid(this.value,0.97,0.98,this.id);"/></label></td>
+               </tr>
+               <tr>
+                   <td>Демультипликатор: 0.96-0.98 </td>
+                   <td><label><input value="0.97" type="number" id="transmissionSplitter01" class="inputAll" onchange="stupid(this.value,0.96,0.98,this.id);"/></label></td>
+               </tr>
+               <tr>
+                   <td>Раздаточная коробка: 0.93-0.98 </td>
+                   <td><label><input value="0.955" type="number" id="transmissionTransferCase01" class="inputAll" onchange="stupid(this.value,0.93,0.98,this.id);"/></label></td>
+               </tr>
+               <tr>
+                   <td>Коробка передач: 0.95-0.98 </td>
+                   <td><label><input value="0.965" type="number" id="transmissionBox" class="inputAll" onchange="stupid(this.value,0.95,0.98,this.id);"/></label></td>
+               </tr>
+                   <tr>
+                       <td>Колесная передача: 0.96-0.98 </td>
+                       <td><label><input value="0.97" type="number" id="transmissionWheel" class="inputAll" onchange="stupid(this.value,0.96,0.98,this.id);"/></label></td>
+                   </tr>
+               <tr>
+                   <td>Главная передач: 0.93-0.97 </td>
+                   <td><label><input value="0.95" type="number" id="transmissionTopGear01" class="inputAll" onchange="stupid(this.value,0.93,0.97,this.id);"/></label></td>
+               </tr>
+           </table>
+               </div>
+           </div>
+                   <div class="clear"></div></div>
+               <script>
+                   document.getElementById("slyshkomMnogoClassov").style.marginTop="340px"
+               </script>
+               <input type="checkbox" name="vkl" id="vkl2"/>
+               <label for="vkl2">ПАРАМЕТРЫ ДВИГАТЕЛЯ, ПОСТРОЕНИЕ ВСХ</label>
+               <div>
+           <div class="new">
+               <div class="cont1">
+           <table class="table">
+               <tr>
+                   <td>ПАРАМЕТРЫ ДВИГАТЕЛЯ</td>
+               </tr>
+               <tr>
+                   <td>Максимальная скорость Vmax [км/ч] = </td>
+                   <td class="smoothLeft"><label><input type="number" class="inputAll important" id="engineSpeed" value="110"/></label> </td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="paramEngine();">OK</button></td>
+               </tr>
+               <tr>
+                   <td>Мощьность двигателя при Vmax [кВт] = </td>
+                   <td><span id="powerForMaxSpeed" ></span></td>
+               </tr>
+               <tr></tr>
+               <tr>
+                   <td>Коэф. приспосабливаемости по частоте вращения K<sub>n</sub> = </td>
+                   <td class="smoothLeft"><label><input  type="number" class="inputAll important" id="frequencyAdaptability" onchange="frequencyICE()" value="1.92"/></label></td>
+               </tr>
+           </table>
+               </div>
+               <div class="cont1">
+                   <div class="switch1">
+                       <input onchange="relay(this.id,1)" type="checkbox" id="payt0"/><label for="payt0"></label> Ручная корректировка
+                   </div>
+                   <table class="thin" style="display:none;" >
+                       <tr>
+                           <td>Коэффициент сопротивления дороги при V<sub>max</sub>.<br>:0.018-0.03</td>
+                           <td><label><input value="0.024" type="number" id="engineParam" class="inputAll" onchange="stupid(this.value,0.018,0.03,this.id);"/></label></td>
+                       </tr>
+                   </table>
+               </div>
+               <div class="clear"></div>
+           <table border="1px" bordercolor="black">
+              <tr> <th>Характерные частоты вращения коленчатого вала ДВС</th></tr>
+               <tr>
+                   <td>Частота ДВС</td>
+                   <td>Обозначение</td>
+                   <td>Величина [об/мин]</td>
+               </tr>
+               <tr>
+                   <td>Минимальная устойчивая</td>
+                   <td>n<sub>emin</sub></td>
+                   <td><label><input type="number" class="inputFrequency important" id="frequencyMIN" onchange="frequencyICE()" value="600"/></label></td>
+               </tr>
+               <tr>
+                   <td>При max крутящем моменте M<sub>emax</sub></td>
+                   <td>n<sub>м</sub></td>
+                   <td class="inputFrequency"><span id="frequencyMAXtwist" ></span></td>
+               </tr>
+               <tr>
+                   <td>При max мощности P<sub>emax</sub></td>
+                   <td>n<sub>p</sub></td>
+                   <td><label><input type="number" class="inputFrequency important" id="frequencyMAXpower" onchange="frequencyICE()" value="2000"/></label></td>
+               </tr>
+               <tr>
+                   <td>Максимальная</td>
+                   <td>n<sub>emax</sub></td>
+                   <td class="inputFrequency"><span id="frequencyMAX" ></span></td>
+               </tr>
+           </table>
+           <table class="table">
+               <tr>
+                   <td>Коэффициент приспосабливаемости по крутящему моменту K<sub>м</sub> = </td>
+                   <td><label><input type="number" class="inputAll important" id="adaptabilityForFrequency" value="1.24"/></label></td>
+               </tr>
+               <tr>
+                   <td>Коэффициент a = </td>
+                   <td><span id="coefficientA" ></span></td>
+               </tr>
+               <tr>
+                   <td>Коэффициент b = </td>
+                   <td><span id="coefficientB" ></span></td>
+               </tr>
+               <tr>
+                   <td>Коэффициент c = </td>
+                   <td><span id="coefficientC" ></span></td>
+               </tr>
+               <tr>
+                   <td>Максимальная мощность P<sub>emax</sub> [кВт] = </td>
+                   <td><span id="powerMAX" ></span></td>
+               </tr>
+               <tr>
+                   <td>Удельная мощность P<sub>уд</sub> [кВт/т] = </td>
+                   <td><span id="powerSpecific" ></span></td>
+               </tr>
+               <tr>
+                   <td>Крутящий момент при P<sub>emax</sub>, M<sub>p</sub> [Н*м] = </td>
+                   <td><span id="torqueForMAXpower" ></span></td>
+               </tr>
+               <tr>
+                   <td>Максимальный крутящий момент M<sub>emax</sub> [Н*м] = </td>
+                   <td><span id="torqueMAX"></span></td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="coefficientABC();">OK</button></td>
+               </tr>
+           </table>
+<br>
+           <table border="1px" bordercolor="black" id="tableVSX">
+               <tr><th>ПОСТРОЕНИЕ ВСХ</th> <td><button class="button" onclick="buble();">OK</button></td></tr>
+               <tr id="tableOutsideSpeed01">
+                   <td>Обозначеине</td>
+               </tr>
+               <tr id="tableOutsideSpeed02">
+                   <td>n<sub>e</sub>,об/мин</td>
+               </tr>
+               <tr id="tableOutsideSpeed03">
+                   <td>P<sub>e</sub>,кВт</td>
+               </tr>
+               <tr id="tableOutsideSpeed04">
+                   <td>P<sub>e</sub>,л.с.</td>
+               </tr>
+               <tr id="tableOutsideSpeed05">
+                   <td>M<sub>e</sub>,Н*м</td>
+               </tr>
+
+           </table>
+<br>
+           <table style="display:none;" id="canvasVSX" >
+               <tr >
+                   <td class="VSX"><h3>Внешние скоростные характеристики бензинового автомобиля</h3></td>
+               </tr>
+               <tr >
+                   <td class="VSX" >
+   <canvas id="schedule" width="800" height="800" >Yes, yes, yes. It's canvas.</canvas>
+                   </td>
+               </tr>
+           </table>
+               <a style="display:none;" id="dowlandVSX"> Скачать</a>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl3"/>
+               <label for="vkl3">ВЫБОР ШИН</label>
+               <div>
+           <div class="new">
+               <table class="table">
+                   <tr>ВЫБОР ШИН</tr>
+                   <tr><td>Класс</td></tr>
+                   <tr>
+                       <td><label><input type="radio" checked name="halfWeigth1"/> Класс А</label></td>
+                   </tr>
+                   <tr>
+                       <td><label><input type="radio" name="halfWeigth1"/> Класс В</label></td>
+                   </tr>
+                   <tr><td>Привод</td></tr>
+                   <tr>
+                       <td><label><input type="radio" checked name="halfWeigth"/> Задний</label></td>
+                   </tr>
+                   <tr>
+                       <td><label><input type="radio" name="halfWeigth"/> Передний</label></td>
+                   </tr>
+                   <tr>
+                       <td><label><input type="radio" name="halfWeigth"/> Полный</label></td>
+                   </tr>
+                   <tr>
+                       <td><br>Введите тип шин
+                           <label><input type="number" class="inputTire" id="widthTire" value="195"/> </label>/
+                           <label><input type="number" class="inputTire" id="heightTire" value="50"/> </label>R
+                           <label><input type="number" class="inputTire" id="diameterTire" value="15"/></label>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td><br>Дина автомобимля L [м] = </td>
+                       <td><br><label><input type="number" id="widthCar" class="inputAll important" value="2.5"/></label></td>
+                   </tr>
+                   <tr>
+                       <td>Радиус качения колес без скольжения =</td>
+                       <td><span id="tireRadius" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Расстояние от центра тяжести до передней оси a [м] =</td>
+                       <td><span id="centerTohead" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Расстояние от центра тяжести до задней оси b [м] =</td>
+                       <td><span id="centerToBackside" ></span></td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="tires()">OK</button></td>
+                   </tr>
+               </table>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl4"/>
+               <label for="vkl4">ВЫБОР ПЕРЕДАТОЧНЫХ ЧИСЕЛ</label>
+               <div><div class="new">
+                   <div class="cont1">
+
+                       <table >
+                           <tr>
+                               <td colspan="4">ВЫБОР ПЕРЕДАТОЧНЫХ ЧИСЕЛ</td>
+                           </tr>
+                           <tr>
+                               <td colspan="5">Значения полученные для выбора первой передачи</td>
+                           </tr>
+                           <tr>
+                               <td width="60" class="spanGear" ><span  id="maxUp" >U<sub>1&psi;</sub></span></td>
+                               <td class="tdSpanGear">&le;</td>
+                               <td width="60" class="spanGear"><span  id="firstGear" >U<sub>1</sub></span></td>
+                               <td class="tdSpanGear">&le;</td>
+                               <td width="60" class="spanGear"><span  id="roadFriction" >U<sub>1&phi;</sub></span></td>
+                           </tr>
+                           <tr>
+                               <td class="spanGear"><span  id="firstGear2">U<sub>1</sub></span></td>
+                               <td class="tdSpanGear">&ge;</td>
+                               <td class="spanGear"><span  id="minSmooth">U<sub>1&nu;</sub></span></td>
+                           </tr>
+                           <tr>
+                               <td><button class="button" onclick="topGear(0.38,0.77,88,5,0,0);">OK</button></td>
+                           </tr>
+                           <tr>
+                               <td colspan="4">При необходимости скорректируйте значение значение U<sub>1</sub></td>
+                               <td><label><input type="number" id="topGearEnd" class="inputAll" onchange="changeU1(this.value,this.id);"/></label></td>
+                           </tr>
+                       </table>
+                   </div>
+                   <div class="cont1">
+                       <div class="switch1">
+                           <input onchange="relay(this.id,2);" type="checkbox" id="payt2"/><label for="payt2"></label> Ручная корректировка
+                       </div>
+                       <table class="thin" style="display:none;">
+                           <tr>
+                               <td>Передаточное число высшей ступени КП: U<sub>B</sub>,<br> 1-если прямая, 0.65-0.82 если повышающая<hr></td>
+                               <td><label><input value="0.76" type="number" id="upperStair" class="inputAll" onchange="stupid1(this.value,0.65,0.82,this.id);"/></label></td>
+                           </tr>
+                           <tr>
+                               <td>Максимальное сопротивление дороги 	&psi;<sub>max</sub>: 0.35-0.40<hr></td>
+                               <td><label><input value="0.35" type="number" id="resistanceMAX" class="inputAll" onchange="stupid(this.value,0.35,0.4,this.id);"/></label></td>
+                           </tr>
+                           <tr>
+                               <td>Коэффициент сцепления шин с дорогой &phi;: 0.7-0.85<hr></td>
+                               <td><label><input value="0.8" type="number" id="clutchTires" class="inputAll" onchange="stupid(this.value,0.7,0.85,this.id);"/></label></td>
+                           </tr>
+                           <tr>
+                               <td>Коэффициент перераспределения нагрузкина на<br> ведущие колёса K<sub>R&phi;</sub>, передний привод: 0.85-0.9,<br> задний: 1.05-1.1, полный: 1<hr></td>
+                               <td><label><input value="1" type="number" id="loadRedistribution" class="inputAll" onchange="stupid3(this.value,0.85,0.9,this.id,1.05,1.1);"/></label></td>
+                           </tr>
+                           <tr>
+                               <td>Минимальная устойчивая скорость движения<br> V<sub>amin</sub>: 3-7 км/ч</td>
+                               <td><label><input value="5" type="number" id="minStaySpeed" class="inputAll" onchange="stupid(this.value,3,7,this.id);"/></label></td>
+                           </tr>
+                       </table>
+               </div>
+           </div>
+           <div class="clear"></div>
+           <div class="new">
+               <div class="cont1">
+                   <hr>
+           <table>
+               <tr>
+                   <td width="370px">Расчет диавпазона передаточных величин<br> и проверка на пробуксовку сцепления</td>
+               </tr>
+               <tr>
+                   <td><br>Введите количество ступеней КП</td>
+                   <td><br><label><input value="5" type="number" id="stairsKP" class="inputAll" onchange="stupid(this.value,3,30,this.id);"/></label></td>
+               </tr>
+               <tr>
+                   <td>Диапазон передаточных чисел</td>
+                   <td><span id="rangeKP" ></span></td>
+               </tr>
+               <tr>
+                   <td><button class="button" onclick="tireNext(0,0,0);">OK</button></td>
+               </tr>
+           </table>
+               </div>
+               <div class="cont1">
+                   <br>
+                   <div class="switch1">
+                   <input onchange="relay(this.id,3);" type="checkbox" id="payt3"/><label for="payt3"></label> Ручная корректировка
+                   </div>
+                   <table class="thin" style="display:none;">
+                       <tr>
+                           <td width="365px">Момент сопротивления дороги &psi;: 0.016-0.120</td>
+                           <td ><label><input value="0.016" type="number" id="roadResistance" class="inputAll" onchange="stupid(this.value,0.016,0.120,this.id);"/></label></td>
+                       </tr>
+                   </table>
+                </div>
+           </div>
+           <div class="clear"></div>
+           <div class="new">
+               <br> <table border="1px" bordercolor="black" id="tableGear">
+               <thead>
+                   <tr><th>Передаточные числа трансмиссии</th>
+                       <td><button class="button" onclick="stair();">OK</button></td>
+               </tr>
+                   <tr>
+                       <td>Передаточное число</td>
+                       <td>Значение</td>
+                   </tr>
+               </thead>
+               <tbody>
+               </tbody>
+               </table>
+              <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl5"/>
+               <label for="vkl5">ТЯГОВАЯ ХАРАКТЕРИСТИКА АВТОМОБИЛЯ</label>
+               <div>
+           <div class="new">
+               <div class="cont2">
+               <table>
+                   <tr>
+                       <td>ТЯГОВАЯ ХАРАКТЕРИСТИКА АВТОМОБИЛЯ</td>
+                   </tr>
+                   <tr>
+                       <td>Полная окружная сила тяги на мокром асфальте </td>
+                       <td>F<sub>Т&phi;</sub>= <span id="tractionWet" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Полная окружная сила тяги на сухом асфальте </td>
+                       <td>F<sub>Т&phi;</sub>= <span id="tractionDry" ></span></td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="tractionCharacteristic();">OK</button></td>
+                   </tr>
+               </table>
+               </div>
+               <div class="cont3">
+                   <div class="switch1">
+                       <input onchange="relay(this.id,4);" type="checkbox" id="payt4"/><label for="payt4"></label> Ручная корректировка
+                   </div>
+                   <table class="thin" style="display:none;">
+                       <tr>
+                           <td >Сухой чистый асфальт &phi;: 0.7-0.85</td>
+                           <td ><label><input value="0.85" type="number" id="dryRoad" class="inputAll" onchange="stupid(this.value,0.7,0.85,this.id);"/></label></td>
+                       </tr>
+                       <tr>
+                           <td colspan="2">Также это значение будет использовано для расчета динамического фактора и для расчета максимально преодолимого подъема.</td>
+                       </tr>
+                   </table>
+               </div>
+               <div class="clear"></div>
+               <table style="display:none;" id="canvasThrust" >
+                   <tr >
+                       <td class="VSX"><h3>Тягововая характеристика автомобиля</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule1" width="800" height="800" >Yes, yes, yes. It's again canvas.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandThrust"> Скачать</a>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl6"/>
+               <label for="vkl6">ДИНАМИЧЕСКАЯ ХАРАКТЕРИСТИКА АВТОМОБИЛЯ</label>
+               <div>
+           <div class="new">
+               <table>
+                   <tr>
+                       <td>ДИНАМИЧЕСКАЯ ХАРАКТЕРИСТИКА АВТОМОБИЛЯ</td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный динамечиский фактор на низшей передаче</td>
+                       <td>D<sub>max</sub>= <span id="dynamicsMAX" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный динамечиский фактор на мокром асфальте</td>
+                       <td>D<sub>&phi;м</sub>= <span id="dynamicsWet" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный динамечиский фактор на сухом асфальте</td>
+                       <td>D<sub>&phi;c</sub>= <span id="dynamicsDry" ></span></td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="dynamicCharacteristic();">OK</button></td>
+                   </tr>
+               </table>
+               <table style="display:none;" id="canvasDynamics" >
+                   <tr >
+                       <td class="VSX"><h3>Динамическая характеристика автомобиля</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule2" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandDynamics"> Скачать</a>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl7"/>
+               <label for="vkl7">УСКОРЕНИЕ АВТОМОБИЛЯ НА ПЕРЕДАЧАХ</label>
+               <div>
+           <div class="new">
+               <div class="cont2">
+               <table>
+                   <tr>
+                       <td>УСКОРЕНИЕ АВТОМОБИЛЯ НА ПЕРЕДАЧАХ</td>
+                   </tr>
+                   <tr>
+                       <td>Максимально преодолимый подъём по двигателю</td>
+                       <td>i<sub>ДВС</sub>= <span id="inclineEngine" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный преодолеваемый подъём по сцеплению шин с дорогой</td>
+                       <td>i<sub>&phi;</sub>= <span id="inclineClutch" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный преодолеваемый подъём по сцеплению шин с дорогой</td>
+                       <td>i<sub>max&phi;</sub>% = <span id="inclineClutchMAX" ></span></td>
+                   </tr>
+                   <tr>
+                       <td>Максимальный преодолеваемый подъём </td>
+                       <td>i<sub>max</sub>% = <span id="inclineMAX" ></span></td>
+                   </tr>
+                   <tr>
+                       <td> <button class="button" onclick="acceleration();">OK</button></td>
+                   </tr>
+               </table>
+               </div>
+               <div class="cont3">
+                   <div class="switch1">
+                       <input onchange="relay(this.id,5);" type="checkbox" id="payt5"/><label for="payt5"></label> Ручная корректировка
+                   </div>
+                   <table class="thin" style="display:none;">
+                       <tr>
+                           <td >&sigma;<sub>1</sub>: 0.03-0.05</td>
+                           <td ><label><input value="0.04" type="number" id="coefficientq1" class="inputAll" onchange="stupid(this.value,0.03,0.05,this.id);"/></label></td>
+                       </tr>
+                       <tr>
+                           <td >&sigma;<sub>2</sub>: 0.04-0.08</td>
+                           <td ><label><input value="0.07" type="number" id="coefficientq2" class="inputAll" onchange="stupid(this.value,0.04,0.08,this.id);"/></label></td>
+                       </tr>
+                       <tr>
+                           <td colspan="2">Необходимо принимать большие<br> значения для меньших автомобилей.</td>
+                       </tr>
+                   </table>
+               </div>
+               <div class="clear"></div>
+               <table style="display:none;" id="canvasAcceleration" >
+                   <tr >
+                       <td class="VSX"><h3>Ускорение автомобиля на передачах</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule3" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandAcceleration"> Скачать</a>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl8"/>
+               <label for="vkl8">ТАБЛИЦА ТЯГОВОГО БАЛАНСА</label>
+               <div>
+               <div class="new">
+               <table>
+                   <tr>
+                       <td>Построение таблицы тягового баланса автомобиля на передачах</td>
+                       <td> <button onclick="builderMega();">Построить таблицу</button></td>
+                   </tr>
+               </table>
+           <table border="1px" bordercolor="black" id="mega">
+               <thead>
+               <tr id="megaTR1">
+                   <td>n<sub>e</sub>, об/мин</td>
+               </tr>
+               <tr id="megaTR2">
+                   <td>P<sub>e</sub>, кВт</td>
+               </tr>
+               <tr id="megaTR3">
+                   <td>M<sub>e</sub>, H*м</td>
+               </tr>
+               </thead>
+               <tbody>
+               </tbody>
+           </table>
+               <canvas id="schedule8" style="display:none;">You understand.</canvas>
+               <a  id="dowlandBigTable" style="display:none;"> Скачать</a>
+               <hr>
+           </div>
+               </div>
+               <input type="checkbox" name="vkl" id="vkl9"/>
+               <label for="vkl9">ВРЕМЯ И ПУТЬ РАЗГОНА АВТОМОБИЛЯ</label>
+               <div>
+           <div class="new" id="speedANDtime">
+               <table>
+                   <tr>
+                       <td>ВРЕМЯ И ПУТЬ РАЗГОНА АВТОМОБИЛЯ</td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="TimeWay();">OK</button></td>
+                   </tr>
+               </table>
+               <table style="display:none;" id="canvasTime" >
+                   <tr >
+                       <td class="VSX"><h3>Скоростная характеристика времени разгона автомобиля</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule4" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandTime"> Скачать</a>
+               <table style="display:none;" id="canvasWay" >
+                   <tr >
+                       <td class="VSX"><h3>Скоростная характеристика пути разгона автомобиля</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule5" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandWay"> Скачать</a>
+               <hr>
+           </div>
+               </div>
+               <input type="checkbox" name="vkl" id="vkl10"/>
+               <label for="vkl10">МОЩНОСТНОЙ БАЛАНС АВТОМОБИЛЯ</label>
+               <div>
+           <div class="new" >
+               <table>
+                   <tr>
+                       <td>МОЩНОСТНОЙ БАЛАНС АВТОМОБИЛЯ</td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="powerCharacter();">OK</button></td>
+                   </tr>
+               </table>
+               <table style="display:none;" id="canvasPower" >
+                   <tr >
+                       <td class="VSX"><h3>Мощностная характеристика автомобиля на высшей передаче</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule6" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandPower"> Скачать</a>
+               <table border="1px" bordercolor="black" id="power">
+                   <thead>
+                   <tr>
+                       <td align="center">n<sub>e</sub>, об/мин</td>
+                       <td align="center">V<sub>a</sub>, км/ч</td>
+                       <td align="center">V<sub>a</sub>, м/с</td>
+                       <td align="center">P<sub>e</sub>, кВт</td>
+                       <td align="center">P<sub>k</sub>, кВт</td>
+                       <td align="center">P<sub>&Psi;</sub>, кВт</td>
+                       <td align="center">P<sub>в</sub>, кВт</td>
+                       <td align="center">P<sub>&Psi;</sub>+P<sub>в</sub>, кВт</td>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   </tbody>
+               </table>
+               <hr>
+           </div></div>
+               <input type="checkbox" name="vkl" id="vkl11"/>
+               <label for="vkl11">ТОПЛИВНАЯ ЭКОНОМИЧНОСТЬ</label>
+               <div>
+           <div class="new" >
+               <div class="cont1">
+               <table>
+                   <tr>
+                       <td>ТОПЛИВНАЯ ЭКОНОМИЧНОСТЬ</td>
+                   </tr>
+                   <tr>
+                       <td>Скорость для расчета путевого расхода Vp [км/ч] =</td>
+                       <td><span id="spechialSpeed"></span></td>
+                   </tr>
+                   <tr>
+                       <td><button class="button" onclick="economy();">OK</button></td>
+                   </tr>
+               </table>
+               </div>
+               <div class="cont1">
+                   <div class="switch1">
+                       <input onchange="relay(this.id,6);" type="checkbox" id="payt6"/><label for="payt6"></label> Ручная корректировка
+                   </div>
+                   <table class="thin" style="display:none;">
+                       <tr>
+                           <td >Коэффициент для расчета среднего удельного расхода при максимальной мощности: 1.05-1.10</td>
+                           <td ><label><input value="1.05" type="number" id="coefficientForGEP" class="inputAll" onchange="stupid(this.value,1.05,1.1,this.id);"/></label></td>
+                       </tr>
+                       <tr>
+                           <td >Минимальный удельный расход топлива g<sub>emin</sub> [г/(кВт*ч)]: 180-240</td>
+                           <td ><label><input value="180" type="number" id="specificConsumption" class="inputAll" onchange="stupid(this.value,180,240,this.id);"/></label></td>
+                       </tr>
+                       <tr>
+                           <td >Плотность топлива 	&rho;<sub>г</sub> [кг/м&sup3;)]: 830-840</td>
+                           <td ><label><input value="840" type="number" id="fuelDensity" class="inputAll" onchange="stupid(this.value,830,840,this.id);"/></label></td>
+                       </tr>
+                   </table>
+               </div>
+               <div class="clear"></div>
+               <table style="display:none;" id="canvasFuel" >
+                   <tr >
+                       <td class="VSX"><h3>Топливная характеристика установившегося движения</h3></td>
+                   </tr>
+                   <tr >
+                       <td class="VSX" >
+                           <canvas id="schedule7" width="800" height="800" >You understand.</canvas>
+                       </td>
+                   </tr>
+               </table>
+               <a style="display:none;" id="dowlandFuel"> Скачать</a>
+               <table border="1px" bordercolor="black" id="economy">
+                   <thead>
+                   <tr>
+                       <td align="center">V<sub>a</sub>, км/ч</td>
+                       <td align="center">P<sub>к</sub>, кВт</td>
+                       <td align="center">P<sub>&Psi;</sub>+P<sub>в</sub>, кВт</td>
+                       <td align="center">U</td>
+                       <td align="center">E</td>
+                       <td align="center">K<sub>И</sub></td>
+                       <td align="center">K<sub>E</sub></td>
+                       <td align="center">Q<sub>S</sub>, л/100км</td>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   </tbody>
+               </table>
+               <hr>
+           </div>
+               </div>
+           </div>
+       </div>
+
+       <div id="sidebar"><h2>TIPE</h2>
+           <h3>Car:</h3>
+           <a href="1.html"><h4>Petrol</h4></a>
+           <a href="2.html"><h4>Diesel</h4></a>
+           <h3>Bus:</h3>
+           <a href="3.html" ><h4>Petrol</h4></a>
+           <a href="4.html"><h4>Diesel</h4></a>
+           <h3>Tourist-bus:</h3>
+           <a href="5.html" ><h4>Petrol</h4></a>
+           <h4>Diesel</h4>
+           <h3>Truck:</h3>
+           <a href="7.html" ><h4>Petrol</h4></a>
+           <a href="8.html"><h4>Diesel</h4></a>
+       </div>
+
+   </div>
+   <!--  <script>
+         pasword();
+         function pasword() {
+         var key=prompt("Введите пароль.");
+         var castle="Vivat";
+         if(key===castle)
+         document.getElementById("Content-wrape").style.display="table";
+         else if (key===null) alert("Неверный пароль!");
+         else {alert("Неверный пароль!"); pasword();} }
+     </script> -->
+  </div>
+
+  </body>
+  </html>

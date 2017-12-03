@@ -1,0 +1,143 @@
+html, body{
+     padding: 0;
+     margin: 0;
+ }
+
+html{
+    background: url(image/Back.jpg) center;
+}
+
+#Con{
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 40px;
+    display:table;
+}
+
+#header{
+    background: white url(image/Car.png) no-repeat right top;
+    background-size: 520px;
+    height: 100px;
+    width: 965px;
+    margin: 0 auto;
+    opacity: 0.7;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 35px;
+}
+
+#Content-wrape{
+    background: white;
+    width: 1000px;
+    /* height: 15000px; */
+    min-height: 450px;
+    display:table;
+    opacity: 0.95;
+    margin: 30px auto;
+    border-radius: 10px;
+}
+#qq{
+    height: 15px;
+    width: 7px;
+    text-align: center;
+    border: none;
+    background-color: rgba(140, 130, 130, 0);
+    border-radius: 3px;
+}
+
+.slide {
+    width: 720px;
+    height: 405px;
+    border: 1px solid #888;
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+}
+.slide  input {
+    display: none;
+}
+
+.slide  input + label {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 8px;
+    background: rgba(90, 90, 90, 0.8);
+    border: 2px solid rgba(190, 190, 190, 0.8);
+
+    cursor: pointer;
+
+    z-index: 100;
+    position: relative;
+
+    margin-right: 4px;
+    top: 90%;
+
+    transition: background 0.8s ease-out 0s;
+}
+
+.slide  input + label:hover {
+    background: rgba(250, 250, 250, 0.8);
+}
+
+.slide  input:checked + label {
+    background: rgba(220, 220, 220, 0.8);
+}
+
+.slide  div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.slide  div {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.8s ease-out 0.1s, visibility 0.1s ease-out 0.9s;
+}
+
+.slide img {
+    width:720px;
+    height:405px;
+}
+
+.slide  input:checked + label + div {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.8s ease-out 0.1s, visibility 0.1s ease-out 0s;
+}
+
+.slide  div  p {
+    position: absolute;
+    font-size:25px;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 3px #222;
+}
+
+.cont1{
+    width: 13%;
+    float: left;
+    text-align: center;
+}
+
+.cont2{
+    width: 72%;
+    float: left;
+}
+
+.butt{
+    margin-top: 20px;
+    opacity: 0.9;
+    border: none;
+    background-color: white;
+    height: 400px;
+    width: 100px;
+    outline-style: none;
+}
